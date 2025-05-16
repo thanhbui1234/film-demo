@@ -7,12 +7,12 @@ export function middleware(request: NextRequest) {
   const isLoginRoute = request.nextUrl.pathname === "/admin/login";
   const authToken = request.cookies.get("auth-token");
 
-  // Nếu đang truy cập route admin và chưa đăng nhập
-  if (isAdminRoute && !authToken && !isLoginRoute) {
-    return NextResponse.redirect(new URL("/admin/login", request.url));
+  // If accessing admin route without token
+  if (isAdminRoute && !authToken) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Nếu đã đăng nhập và cố truy cập trang login
+  // If accessing login page with token
   if (isLoginRoute && authToken) {
     return NextResponse.redirect(new URL("/admin", request.url));
   }

@@ -18,19 +18,27 @@ export default function AdminLogin() {
     const password = formData.get("password") as string;
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch("/api/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-      // Mock credentials - In real app, this would be an API call
-      if (email === "admin@example.com" && password === "admin123") {
-        // Set auth token
-        document.cookie = "auth-token=dummy-token; path=/";
-        router.push("/admin");
-      } else {
-        setError("Invalid credentials");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed");
       }
+
+      // Save token and user data to localStorage
+      localStorage.setItem("auth-token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      router.push("/admin");
     } catch (err) {
-      setError("An error occurred. Please try again.");
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setIsLoading(false);
     }
