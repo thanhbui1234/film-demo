@@ -1,5 +1,5 @@
-import { ContactForm } from "./components/ContactForm";
-import { MovieSlider } from "./components/MovieSlider";
+import { ContactForm } from "../components/ContactForm";
+import { MovieSlider } from "../components/MovieSlider";
 
 export default function Home() {
   return (
