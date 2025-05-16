@@ -1,14 +1,8 @@
+import { db } from "@/db";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
-
-// Mock user database
-const users = [
-  {
-    id: "1",
-    email: "admin@example.com",
-    password: "admin123",
-    role: "admin",
-  },
-];
+import { v4 as uuidv4 } from "uuid";
 
 export async function POST(request: Request) {
   try {
@@ -16,11 +10,11 @@ export async function POST(request: Request) {
     const { email, password } = body;
 
     // Find user
-    const user = users.find(
-      (u) => u.email === email && u.password === password
-    );
+    const user = await db.query.users.findFirst({
+      where: eq(users.email, email),
+    });
 
-    if (!user) {
+    if (!user || user.password !== password) {
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
@@ -61,4 +55,20 @@ export async function DELETE() {
   response.cookies.delete("auth-token");
 
   return response;
+}
+
+// Helper function to create initial admin user
+export async function createInitialAdmin() {
+  const adminExists = await db.query.users.findFirst({
+    where: eq(users.email, "admin@example.com"),
+  });
+
+  if (!adminExists) {
+    await db.insert(users).values({
+      id: uuidv4(),
+      email: "admin@example.com",
+      password: "admin123",
+      role: "admin",
+    });
+  }
 }
