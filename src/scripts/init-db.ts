@@ -1,4 +1,4 @@
-import { createInitialAdmin } from "../app/api/auth/route";
+import { createInitialAdmin } from "@/lib/db/seed";
 
 async function init() {
   try {
