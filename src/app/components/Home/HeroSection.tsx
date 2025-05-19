@@ -86,7 +86,7 @@ const HeroSection = () => {
               y: videoY,
               opacity: videoOpacity,
             }}
-            className="absolute w-full z-40 flex items-center justify-center"
+            className="absolute w-full z-40 flex items-center justify-center mt-64"
           >
             <div className="w-full max-w-7xl px-4">
               <VideoBanner />
