@@ -12,92 +12,79 @@ const HeroSection = () => {
     offset: ["start start", "end start"],
   });
 
-  // Transform values for Banner
-  const bannerRotate = useTransform(scrollYProgress, [0, 0.5], [0, 20]);
-  const bannerScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
-  const bannerY = useTransform(scrollYProgress, [0, 0.5], ["0%", "-25%"]);
+  // Banner: nhỏ dần, nghiêng, mờ dần nhưng vẫn còn khi text/video xuất hiện
+  const bannerScale = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.7],
+    [1, 0.8, 0.6]
+  );
+  const bannerRotate = useTransform(scrollYProgress, [0.4, 0.7], [0, 50]);
   const bannerOpacity = useTransform(
     scrollYProgress,
-    [0, 0.4, 0.5],
-    [1, 0.5, 0]
+    [0, 0.4, 0.7, 1],
+    [1, 0.7, 0.2, 0.1]
   );
 
-  // Transform values for Show Reel Text
-  const textScale = useTransform(
+  // Text: xuất hiện sau banner, không bị mờ đi khi video xuất hiện, nhỏ lại
+  const textOpacity = useTransform(scrollYProgress, [0.35, 0.5], [0, 1]);
+  const textScale = useTransform(scrollYProgress, [0.45, 0.6], [1, 1.1]);
+  const textY = useTransform(
     scrollYProgress,
-    [0.3, 0.5, 0.7],
-    [0.8, 1.2, 0.8]
+    [0.35, 0.5, 0.6],
+    ["40%", "0%", "0%"]
   );
-  const textOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.7], [0, 1, 0]);
 
-  // Transform values for Video Banner
-  const videoOpacity = useTransform(
-    scrollYProgress,
-    [0.4, 0.5, 0.6],
-    [0, 0.5, 1]
-  );
-  const videoScale = useTransform(
-    scrollYProgress,
-    [0.4, 0.5, 0.6],
-    [0.8, 0.9, 1]
-  );
+  // Video: opacity = 1 luôn khi xuất hiện, chỉ dùng hiệu ứng y (slide up)
+  const showVideo = useTransform(scrollYProgress, (v) => (v > 0.6 ? 1 : 0));
   const videoY = useTransform(
     scrollYProgress,
-    [0.4, 0.5, 0.6, 0.8, 1],
-    ["5%", "0%", "0%", "50%", "50%"]
-  );
-
-  // Section opacity for smooth transition with next section
-  const sectionOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.8, 0.9, 1],
-    [1, 1, 0.5, 0]
+    [0.6, 0.7, 1],
+    ["40%", "0%", "0%"]
   );
 
   return (
-    <motion.div
-      ref={containerRef}
-      className="h-[200vh]"
-      style={{ opacity: sectionOpacity }}
-    >
+    <motion.div ref={containerRef} className="h-[300vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <div
-          className="relative h-full w-full flex items-center justify-center"
-          style={{ perspective: "1500px" }}
+        {/* Banner Layer */}
+        <motion.div
+          style={{
+            opacity: bannerOpacity,
+            scale: bannerScale,
+            rotateX: bannerRotate,
+            zIndex: 10,
+            transformStyle: "preserve-3d",
+          }}
+          className="absolute inset-0 flex items-center justify-center"
         >
-          {/* Banner with tilt effect */}
-          <motion.div
-            style={{
-              rotateX: bannerRotate,
-              scale: bannerScale,
-              y: bannerY,
-              opacity: bannerOpacity,
-              transformStyle: "preserve-3d",
-            }}
-            className="absolute inset-0 z-10"
-          >
-            <Banner />
-          </motion.div>
-
-          {/* Video Banner */}
-          <motion.div
-            style={{
-              scale: videoScale,
-              y: videoY,
-              opacity: videoOpacity,
-            }}
-            className="absolute w-full z-40 flex items-center justify-center mt-64"
-          >
-            <div className="w-full max-w-7xl px-4">
-              <VideoBanner />
-            </div>
-          </motion.div>
-
-          {/* Show Reel Text */}
-        </div>
+          <Banner />
+        </motion.div>
+        {/* Text Layer */}
+        <motion.div
+          style={{
+            opacity: textOpacity,
+            scale: textScale,
+            y: textY,
+            zIndex: 20,
+          }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <h2 className="text-[6vw] font-extrabold text-white tracking-widest uppercase select-none pointer-events-none">
+            SHOW PRODUCT
+          </h2>
+        </motion.div>
+        {/* Video Banner Layer */}
+        <motion.div
+          style={{ opacity: showVideo, y: videoY, zIndex: 30 }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <div className="w-full max-w-[1500px] h-[200px] flex items-center justify-center mx-auto">
+            <VideoBanner />
+          </div>
+        </motion.div>
       </div>
     </motion.div>
   );
 };
 
 export default HeroSection;
+``;
