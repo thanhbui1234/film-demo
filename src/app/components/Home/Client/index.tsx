@@ -1,6 +1,5 @@
 "use client";
 
-import { ContainerTextFlip } from "@/components/container-text-flip";
 import { motion, useAnimationControls } from "framer-motion";
 import { useEffect } from "react";
 import { FaFacebookF, FaGoogle, FaInstagram, FaTwitter } from "react-icons/fa";
@@ -56,15 +55,20 @@ const Slide = () => {
 
   return (
     <>
-      <p className="text-white text-center text-2xl font-bold pt-16 py-8">
-        <ContainerTextFlip
-          words={["Khách hàng", "Uy tín", "Chất lượng", "Pro"]}
-        />
-      </p>
-      <div className="w-full flex justify-center bg-[#0d0d0d] pb-16">
+      <div className="text-white text-center text-4xl font-bold pt-22 py-8">
+        <p>Khách hàng</p>
+      </div>
+
+      {/* ✅ Thêm motion ở đây để có hiệu ứng xuất hiện */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="w-full flex justify-center bg-[#0d0d0d] pb-16"
+      >
         <div className="w-[800px] overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-10">
           <div className="relative">
-            <motion.div animate={controls} className="flex whitespace-nowrap ">
+            <motion.div animate={controls} className="flex whitespace-nowrap">
               <SlideContent />
               <SlideContent />
               <SlideContent />
@@ -72,7 +76,7 @@ const Slide = () => {
             </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
