@@ -121,6 +121,7 @@ const Banner = () => {
           alt="Banner Image"
           fill
           className="object-cover"
+          quality={75}
           priority
           sizes="(max-width: 768px) 90vw, 80vw"
         />
