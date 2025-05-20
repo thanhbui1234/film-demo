@@ -1,6 +1,12 @@
 "use client";
 
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { useRef } from "react";
 import Banner from "./Banner";
 import VideoBanner from "./Banner/VideoBanner";
@@ -19,29 +25,29 @@ const HeroSection = () => {
     restDelta: 0.001,
   });
 
-  // Banner: nhỏ dần, nghiêng, mờ dần nhưng vẫn còn khi text/video xuất hiện
-  const bannerScale = useTransform(
+  // Banner: rotate and fade out completely when text appears
+  const bannerOpacity = useTransform(
     smoothProgress,
-    [0, 0.2, 0.4, 0.6, 0.8],
-    [1, 0.99, 0.98, 0.97, 0.96]
+    [0, 0.35, 0.4],
+    [1, 0.5, 0]
   );
   const bannerRotateX = useTransform(
     smoothProgress,
-    [0, 0.2, 0.4, 0.6, 0.8],
-    [0, -15, -30, -45, -60]
+    [0, 0.35, 0.4],
+    [0, -45, -60]
+  );
+  const bannerScale = useTransform(
+    smoothProgress,
+    [0, 0.35, 0.4],
+    [1, 0.95, 0.9]
   );
   const bannerTranslateZ = useTransform(
     smoothProgress,
-    [0, 0.2, 0.4, 0.6, 0.8],
-    [0, -100, -200, -300, -400]
-  );
-  const bannerOpacity = useTransform(
-    smoothProgress,
-    [0, 0.2, 0.4, 0.6, 0.8, 1],
-    [1, 0.9, 0.8, 0.6, 0.4, 0.2]
+    [0, 0.35, 0.4],
+    [0, -200, -300]
   );
 
-  // Text: xuất hiện sau banner, không bị mờ đi khi video xuất hiện, nhỏ lại
+  // Text: appear after banner fades out
   const textOpacity = useTransform(
     smoothProgress,
     [0.35, 0.4, 0.5, 0.6, 0.7],
@@ -76,24 +82,27 @@ const HeroSection = () => {
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Banner Layer */}
-        <motion.div
-          style={{
-            opacity: bannerOpacity,
-            scale: bannerScale,
-            rotateX: bannerRotateX,
-            z: bannerTranslateZ,
-            zIndex: 10,
-            transformStyle: "preserve-3d",
-            perspective: "3000px",
-            transformOrigin: "center center",
-            width: "100%",
-            height: "100%",
-          }}
-          className="absolute inset-0 flex items-center justify-center"
-          transition={{ type: "spring", stiffness: 100, damping: 30 }}
-        >
-          <Banner />
-        </motion.div>
+        <AnimatePresence>
+          {smoothProgress.get() < 0.4 && (
+            <motion.div
+              style={{
+                opacity: bannerOpacity,
+                rotateX: bannerRotateX,
+                scale: bannerScale,
+                z: bannerTranslateZ,
+                zIndex: 10,
+                transformStyle: "preserve-3d",
+                perspective: "3000px",
+                transformOrigin: "center center",
+              }}
+              className="absolute inset-0 flex items-center justify-center"
+              transition={{ type: "spring", stiffness: 100, damping: 30 }}
+            >
+              <Banner />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Text Layer */}
         <motion.div
           style={{
@@ -105,10 +114,11 @@ const HeroSection = () => {
           className="absolute inset-0 flex items-center justify-center"
           transition={{ type: "spring", stiffness: 100, damping: 30 }}
         >
-          <h2 className="text-[6vw] font-extrabold text-white tracking-widest uppercase select-none pointer-events-none">
-            SHOW PRODUCT
+          <h2 className="text-[200px] font-extrabold text-white tracking-widest uppercase select-none pointer-events-none">
+            SHOWREEL
           </h2>
         </motion.div>
+
         {/* Video Banner Layer */}
         <motion.div
           style={{ opacity: showVideo, y: videoY, zIndex: 30 }}
