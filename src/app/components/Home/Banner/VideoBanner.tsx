@@ -19,8 +19,8 @@ const VideoBanner = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="relative w-full h-[70vh] flex justify-center items-center"
+      transition={{ duration: 0.8 }}
+      className="relative w-full h-[40vh] flex justify-center items-center"
     >
       <div className="w-full h-full relative rounded-2xl overflow-hidden shadow-2xl">
         <video

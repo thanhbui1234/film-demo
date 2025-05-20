@@ -83,7 +83,7 @@ export default function CollapsibleSection({
 
 export function CollapsibleSectionPage() {
   return (
-    <div className="p-6 bg-[#0D0D0D] min-h-screen space-y-4">
+    <div className="p-6 bg-[#0D0D0D] min-h-[50vh] space-y-4">
       <CollapsibleSection
         title="Tiền Sản Xuất"
         content={

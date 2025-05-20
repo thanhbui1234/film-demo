@@ -1,10 +1,12 @@
 "use client";
 
+import ButtonCustom from "@/components/ui/ButtonCustom";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   FaArrowRight,
   FaFacebookF,
+  FaFilm,
   FaInstagram,
   FaLinkedinIn,
   FaVimeoV,
@@ -27,30 +29,33 @@ const socialLinks = [
 
 const MotionLink = motion(Link);
 
-const Footer = () => (
-  <footer className="w-full  ">
+interface FooterProps {
+  className?: string;
+}
+
+const Footer = ({ className = "" }: FooterProps) => (
+  <footer className={`w-full ${className}`}>
     <div
-      className="w-full max-w-[1200px] mx-auto px-4 py-12 rounded-[40px]"
+      className=" max-w-[100%] px-4 py-12 rounded-[40px] mx-16 "
       style={{
         background:
-          "radial-gradient(132.5% 150% at 3.7% 0%, rgb(255, 115, 0) 0%, rgba(255, 255, 255, 0.03) 37.64%)",
+          "radial-gradient(132.5% 150% at 3.7% 0%, rgb(255, 115, 0) 0%, rgba(255, 255, 255, 0.08) 37.64%)",
         opacity: 1,
       }}
     >
       {/* Logo */}
       <motion.div
-        className="flex justify-center mb-12"
-        whileHover={{ scale: 1.05 }}
+        className="flex justify-center mb-12 gap-5"
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
-        <img src="/logo.svg" alt="FLEX FILMS" className="h-12" />
+        <FaFilm className="text-4xl mt-1 text-white" aria-hidden="true" />
+        <span className="tracking-widest text-white text-4xl">FLEX FILMS</span>
       </motion.div>
 
       {/* Slogan */}
-      <div className="text-center mb-16">
+      <div className="text-center mb-2 border border-white/15 rounded-2xl p-8">
         <motion.h2
-          className="text-3xl md:text-5xl font-bold text-[#0066FF] mb-2 leading-tight"
-          whileHover={{ scale: 1.02 }}
+          className="text-3xl md:text-5xl font-bold text-white mb-2 leading-tight"
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           Not limited to video,
@@ -66,15 +71,13 @@ const Footer = () => (
           Got questions, project ideas, or just want to say hi? We're all ears!
         </p>
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           <Link
             href="#contact"
-            className="inline-flex items-center bg-[#FF5F38] hover:bg-[#ff4a1f] text-white font-medium px-8 py-3 rounded-full transition-all text-sm"
+            className="inline-flex items-center  text-white font-medium px-8 py-3 rounded-full transition-all text-sm"
           >
-            Let's Collaborate <FaArrowRight className="ml-2" />
+            <ButtonCustom text="Let's Collaborate" />
           </Link>
         </motion.div>
       </div>
@@ -99,7 +102,7 @@ const Footer = () => (
             <p className="text-white font-medium text-sm">
               Subscribe to our newsletter
             </p>
-            <div className="flex gap-2">
+            <div className=" flex gap-2 flex-col lg:flex-row ">
               <motion.input
                 type="email"
                 placeholder="name@email.com"
