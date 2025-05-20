@@ -2,6 +2,7 @@ import Slide from "@/app/components/Home/Client";
 import { CollapsibleSectionPage } from "@/app/components/Home/Colspance";
 import HeroSection from "@/app/components/Home/HeroSection";
 import Project from "@/app/components/Home/Project";
+import SlideFoot from "@/app/components/Layouts/SlideFoot";
 import Services from "./services";
 export default function Home() {
   return (
@@ -13,6 +14,8 @@ export default function Home() {
       <Project />
       <CollapsibleSectionPage />
       <Services />
+
+      <SlideFoot />
     </main>
   );
 }

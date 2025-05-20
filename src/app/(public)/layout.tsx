@@ -2,7 +2,7 @@
 
 import Header from "@/app/components/Layouts/Header";
 import Footer from "../components/Layouts/Footer";
-
+import SlideFoot from "../components/Layouts/SlideFoot";
 export default function PublicLayout({
   children,
 }: {
