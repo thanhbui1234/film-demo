@@ -2,6 +2,7 @@ import Slide from "@/app/components/Home/Client";
 import { CollapsibleSectionPage } from "@/app/components/Home/Colspance";
 import HeroSection from "@/app/components/Home/HeroSection";
 import Project from "@/app/components/Home/Project";
+import Services from "./services";
 export default function Home() {
   return (
     <main className="relative">
@@ -11,6 +12,7 @@ export default function Home() {
       <Slide />
       <Project />
       <CollapsibleSectionPage />
+      <Services />
     </main>
   );
 }
