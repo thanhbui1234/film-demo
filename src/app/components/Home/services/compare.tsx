@@ -9,7 +9,7 @@ export function CompareDemo() {
           <div className="flex items-center justify-center bg-[#0E0E10]  rounded-2xl w-full">
             <TextRevealCard
               text="Cải thiện chất lượng"
-              revealText="Tinh tế và tỉ mỉ"
+              revealText="Dịch vụ tốt nhất"
             ></TextRevealCard>
           </div>
         </h3>
