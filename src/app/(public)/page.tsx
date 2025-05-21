@@ -4,7 +4,6 @@ import { CollapsibleSectionPage } from "@/app/components/Home/Colspance";
 import HeroSection from "@/app/components/Home/HeroSection";
 import Project from "@/app/components/Home/Project";
 import SlideFoot from "@/app/components/Layouts/SlideFoot";
-import { BackgroundBeams } from "@/components/ui/background-beams";
 import Services from "./services";
 export default function Home() {
   return (
@@ -17,7 +16,6 @@ export default function Home() {
       <CollapsibleSectionPage />
       <Services />
       <AboutCompany />
-      <BackgroundBeams />
 
       <SlideFoot />
     </main>
