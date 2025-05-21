@@ -1,5 +1,6 @@
 "use client";
 
+import { Boxes } from "@/components/ui/background-boxes";
 import {
   AnimatePresence,
   motion,
@@ -117,6 +118,7 @@ const HeroSection = () => {
           <h2 className="text-[200px] font-extrabold text-white tracking-widest uppercase select-none pointer-events-none">
             SHOWREEL
           </h2>
+          <Boxes />
         </motion.div>
 
         {/* Video Banner Layer */}

@@ -1,3 +1,4 @@
+import { AboutCompany } from "@/app/components/Home/About";
 import Slide from "@/app/components/Home/Client";
 import { CollapsibleSectionPage } from "@/app/components/Home/Colspance";
 import HeroSection from "@/app/components/Home/HeroSection";
@@ -14,7 +15,7 @@ export default function Home() {
       <Project />
       <CollapsibleSectionPage />
       <Services />
-
+      <AboutCompany />
       <SlideFoot />
     </main>
   );
