@@ -115,7 +115,7 @@ const HeroSection = () => {
           className="absolute inset-0 flex items-center justify-center"
           transition={{ type: "spring", stiffness: 100, damping: 30 }}
         >
-          <h2 className="text-[200px] font-extrabold text-white tracking-widest uppercase select-none pointer-events-none">
+          <h2 className=" text-5xl lg:text-[200px] font-extrabold text-white tracking-widest uppercase select-none pointer-events-none">
             SHOWREEL
           </h2>
           <Boxes />
