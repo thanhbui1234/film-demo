@@ -3,9 +3,9 @@ import Slide from "@/app/components/Home/Client";
 import { CollapsibleSectionPage } from "@/app/components/Home/Colspance";
 import HeroSection from "@/app/components/Home/HeroSection";
 import Project from "@/app/components/Home/Project";
+import Services from "@/app/components/Home/services";
 import SlideFoot from "@/app/components/Layouts/SlideFoot";
 import BannerSlideFoot from "@/app/components/Slide/SlideFoot";
-import Services from "./services/page";
 export default function Home() {
   return (
     <main className="relative">
