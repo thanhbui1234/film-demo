@@ -20,7 +20,7 @@ const SlideFoot = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
-    <div className="relative w-full overflow-hidden  py-48 ">
+    <div className="relative w-full overflow-hidden  py-48 mt-10 ">
       <motion.div
         className="flex items-center gap-x-4"
         animate={{ x: [0, -slides.length * 320] }}

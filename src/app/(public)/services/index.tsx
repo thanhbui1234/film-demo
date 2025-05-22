@@ -1,6 +1,5 @@
 "use client";
 
-import { CompareDemo } from "@/app/components/Home/services/compare";
 import Industries from "@/app/components/Home/services/Industries";
 import ButtonCustom from "@/components/ui/ButtonCustom";
 import { useRouter } from "next/navigation";
@@ -21,7 +20,6 @@ const Services = () => {
           We are video experts in many industries!
         </h3>
         <Industries />
-        <CompareDemo />
       </div>
     </>
   );

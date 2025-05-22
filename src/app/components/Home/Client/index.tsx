@@ -55,7 +55,7 @@ const Slide = () => {
 
   return (
     <>
-      <div className="text-white text-center text-4xl font-bold pt-22 py-8">
+      <div className="text-white text-center text-4xl font-bold pb-8">
         <p>Khách hàng</p>
       </div>
 
