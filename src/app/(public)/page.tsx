@@ -5,7 +5,7 @@ import HeroSection from "@/app/components/Home/HeroSection";
 import Project from "@/app/components/Home/Project";
 import SlideFoot from "@/app/components/Layouts/SlideFoot";
 import BannerSlideFoot from "@/app/components/Slide/SlideFoot";
-import Services from "./services";
+import Services from "./services/page";
 export default function Home() {
   return (
     <main className="relative">

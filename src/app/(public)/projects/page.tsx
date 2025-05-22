@@ -1,5 +1,13 @@
+import BannerProject from "@/app/components/Project/Banner";
+import TabsWithCards from "@/app/components/Project/ListProject";
+
 const page = () => {
-  return <div>Projects</div>;
+  return (
+    <>
+      <BannerProject />
+      <TabsWithCards />
+    </>
+  );
 };
 
 export default page;
