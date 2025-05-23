@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const BannerServices = () => {
+const BannerAbout = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -32,7 +32,7 @@ const BannerServices = () => {
       <div className="relative h-full flex items-end pb-24 px-8 md:px-16 lg:px-24">
         <motion.div className="text-left max-w-2xl" style={{ y: textY }}>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            Services
+            About Us
           </h1>
           <p className="text-lg md:text-xl text-white/80 leading-relaxed">
             Join us on a journey where ideas transform into captivating video
@@ -43,4 +43,4 @@ const BannerServices = () => {
     </div>
   );
 };
-export default BannerServices;
+export default BannerAbout;
