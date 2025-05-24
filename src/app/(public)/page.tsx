@@ -1,8 +1,6 @@
 import AboutCompany from "@/app/components/Home/About";
-import Slide from "@/app/components/Home/Client";
-import { CollapsibleSectionPage } from "@/app/components/Home/Colspance";
+import SlideGrid from "@/app/components/Home/Client";
 import HeroSection from "@/app/components/Home/HeroSection";
-import Project from "@/app/components/Home/Project";
 import Services from "@/app/components/Home/services";
 import SlideFoot from "@/app/components/Layouts/SlideFoot";
 import BannerSlideFoot from "@/app/components/Slide/SlideFoot";
@@ -12,11 +10,11 @@ export default function Home() {
       <div className="relative z-10">
         <HeroSection />
       </div>
-      <Slide />
-      <Project />
-      <CollapsibleSectionPage />
-      <Services />
+      <SlideGrid />
+      {/* <Project /> */}
+      {/* <CollapsibleSectionPage /> */}
       <AboutCompany />
+      <Services />
       <BannerSlideFoot />
       <SlideFoot />
     </main>

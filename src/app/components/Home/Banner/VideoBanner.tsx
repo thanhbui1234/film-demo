@@ -7,7 +7,6 @@ const VideoBanner = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Auto-play the video when component mounts
     if (videoRef.current) {
       videoRef.current.play().catch((error) => {
         console.log("Auto-play was prevented:", error);
@@ -20,9 +19,9 @@ const VideoBanner = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="relative w-full h-[40vh] flex justify-center items-center"
+      className="relative w-full flex justify-center items-center"
     >
-      <div className="w-full h-full relative rounded-2xl overflow-hidden shadow-2xl">
+      <div className="w-full max-w-[1500px] aspect-video relative rounded-2xl overflow-hidden shadow-2xl">
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"

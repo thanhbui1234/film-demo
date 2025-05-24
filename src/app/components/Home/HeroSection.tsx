@@ -20,17 +20,15 @@ const HeroSection = () => {
     offset: ["start start", "end start"],
   });
 
-  // Add spring animation for smoother momentum effect
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
 
-  // Add momentum scroll effect
+  // Momentum scroll effect (giữ nguyên phần này nếu bạn thích)
   useEffect(() => {
     let lastScrollTime = Date.now();
-    let lastDelta = 0;
     let animationFrame: number;
 
     const handleWheel = (e: WheelEvent) => {
@@ -41,32 +39,22 @@ const HeroSection = () => {
       const timeDelta = currentTime - lastScrollTime;
       lastScrollTime = currentTime;
 
-      // Calculate velocity based on time and delta
       const delta = e.deltaY;
       const currentVelocity = delta / timeDelta;
-      velocity.set(currentVelocity * 1200); // Increased scale for much stronger initial momentum
+      velocity.set(currentVelocity * 1200);
 
-      // Apply momentum after natural scroll
       const applyMomentum = () => {
         const currentVelocity = velocity.get();
         if (Math.abs(currentVelocity) > 0.5) {
           const momentumScroll = container.scrollTop + currentVelocity;
-          container.scrollTo({
-            top: momentumScroll,
-            behavior: "auto",
-          });
-
-          // Gradually reduce velocity with much slower decay
-          velocity.set(currentVelocity * 0.995); // Increased decay rate for much longer momentum
-
-          // Continue momentum if significant
+          container.scrollTo({ top: momentumScroll, behavior: "auto" });
+          velocity.set(currentVelocity * 0.995);
           if (Math.abs(currentVelocity) > 0.5) {
             animationFrame = requestAnimationFrame(applyMomentum);
           }
         }
       };
 
-      // Start momentum animation
       if (animationFrame) {
         cancelAnimationFrame(animationFrame);
       }
@@ -88,76 +76,49 @@ const HeroSection = () => {
     };
   }, []);
 
-  // Banner: rotate and fade out completely when text appears
-  const bannerOpacity = useTransform(
+  // Banner animation
+  const bannerScale = useTransform(smoothProgress, [0, 0.5], [1, 1.1]);
+  const bannerBlur = useTransform(smoothProgress, [0, 0.5], ["0px", "10px"]);
+  const bannerClip = useTransform(
     smoothProgress,
-    [0, 0.35, 0.4],
-    [1, 0.5, 0]
-  );
-  const bannerRotateX = useTransform(
-    smoothProgress,
-    [0, 0.35, 0.4],
-    [0, -45, -60]
-  );
-  const bannerScale = useTransform(
-    smoothProgress,
-    [0, 0.35, 0.4],
-    [1, 0.95, 0.9]
-  );
-  const bannerTranslateZ = useTransform(
-    smoothProgress,
-    [0, 0.35, 0.4],
-    [0, -200, -300]
+    [0, 0.4, 0.5],
+    ["circle(100% at center)", "circle(50% at center)", "circle(0% at center)"]
   );
 
-  // Text: appear after banner fades out
-  const textOpacity = useTransform(
-    smoothProgress,
-    [0.35, 0.4, 0.5, 0.6, 0.7],
-    [0, 0.5, 1, 0.9, 0.7]
-  );
+  // Text animation
+  const textOpacity = useTransform(smoothProgress, [0.3, 0.5], [0, 1]);
+  const textY = useTransform(smoothProgress, [0.3, 0.5], ["50%", "0%"]);
   const textScale = useTransform(
     smoothProgress,
-    [0.35, 0.4, 0.5, 0.6, 0.7],
-    [1.3, 1.2, 1, 0.9, 0.8]
-  );
-  const textY = useTransform(
-    smoothProgress,
-    [0.35, 0.4, 0.5, 0.6, 0.7],
-    ["40%", "20%", "0%", "-5%", "-10%"]
+    [0.3, 0.5, 0.7],
+    [0.8, 1.1, 1]
   );
 
-  // Video: opacity = 1 luôn khi xuất hiện, chỉ dùng hiệu ứng y (slide up)
-  const showVideo = useTransform(smoothProgress, (v) => (v > 0.6 ? 1 : 0));
-  const videoY = useTransform(
+  // Video animation
+  const videoClip = useTransform(
     smoothProgress,
-    [0.6, 0.7, 1],
-    ["40%", "0%", "0%"]
+    [0.6, 0.7],
+    ["inset(0 100% 0 0)", "inset(0 0% 0 0)"]
   );
+  const videoY = useTransform(smoothProgress, [0.6, 0.7], ["40%", "0%"]);
 
   return (
     <div className="relative w-full">
       <motion.div
         ref={containerRef}
         className="h-[300vh]"
-        style={{
-          scrollBehavior: "smooth",
-        }}
+        style={{ scrollBehavior: "smooth" }}
       >
-        <div className="sticky top-0 h-screen w-full">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
           {/* Banner Layer */}
           <AnimatePresence>
-            {smoothProgress.get() < 0.4 && (
+            {smoothProgress.get() < 0.5 && (
               <motion.div
                 style={{
-                  opacity: bannerOpacity,
-                  rotateX: bannerRotateX,
                   scale: bannerScale,
-                  z: bannerTranslateZ,
+                  filter: bannerBlur,
+                  clipPath: bannerClip,
                   zIndex: 10,
-                  transformStyle: "preserve-3d",
-                  perspective: "3000px",
-                  transformOrigin: "center center",
                 }}
                 className="absolute inset-0 flex items-center justify-center"
                 transition={{ type: "spring", stiffness: 100, damping: 30 }}
@@ -171,23 +132,25 @@ const HeroSection = () => {
           <motion.div
             style={{
               opacity: textOpacity,
-              scale: textScale,
               y: textY,
+              scale: textScale,
               zIndex: 20,
             }}
             className="absolute inset-0 flex items-center justify-center"
             transition={{ type: "spring", stiffness: 100, damping: 30 }}
           >
-            <div>
-              <h2 className="text-5xl lg:text-[200px] font-extrabold text-white tracking-widest uppercase select-none pointer-events-none">
-                SHOWREEL
-              </h2>
-            </div>
+            <h2 className="text-5xl lg:text-[200px] font-extrabold text-white tracking-widest uppercase select-none pointer-events-none">
+              SHOWREEL
+            </h2>
           </motion.div>
 
           {/* Video Banner Layer */}
           <motion.div
-            style={{ opacity: showVideo, y: videoY, zIndex: 30 }}
+            style={{
+              clipPath: videoClip,
+              y: videoY,
+              zIndex: 30,
+            }}
             className="absolute inset-0 flex items-center justify-center"
             transition={{ type: "spring", stiffness: 100, damping: 30 }}
           >

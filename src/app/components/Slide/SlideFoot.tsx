@@ -5,13 +5,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const slides = [
-  "We created Flex Films to solve Client issues, constant improvement, and a spirit of partnership.",
-  "Our mission is to bring a fresh way of producing films to the industry.",
-  "Our mission is to bring a fresh way of producing films to the industry.",
-  "Our mission is to bring a fresh way of producing films to the industry.",
-  "Our mission is to bring a fresh way of producing films to the industry.",
-  "Our mission is to bring a fresh way of producing films to the industry.",
-  "Our mission is to bring a fresh way of producing films to the industry.",
+  "Chúng tôi tạo ra Flex Films để giải quyết các vấn đề của Khách hàng, không ngừng cải tiến và tinh thần hợp tác.",
+  "Mang đến sự xuất sắc trong điện ảnh thông qua cách kể chuyện sáng tạo và công nghệ tiên tiến",
+  "Tạo ra những trải nghiệm đáng nhớ thu hút khán giả toàn cầu",
+  "Tầm nhìn của bạn, chuyên môn của chúng tôi - Tạo ra những bộ phim để lại ấn tượng sâu sắc",
+  "Phá vỡ giới hạn trong sản xuất phim với sự sáng tạo và chính xác",
+  "Nơi đam mê gặp gỡ tính chuyên nghiệp trong từng khung hình chúng tôi tạo ra",
+  "Biến ý tưởng thành những kiệt tác hình ảnh với sự tận tâm và nghệ thuật",
 ];
 
 const BannerSlideFoot = () => {
@@ -64,7 +64,7 @@ const BannerSlideFoot = () => {
           transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
         >
           <Image
-            src="/IMG_3706.JPG"
+            src="/IMG_3706.JPG/"
             alt="Banner Background"
             fill
             className="object-cover object-center"

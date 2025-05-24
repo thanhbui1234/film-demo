@@ -4,7 +4,6 @@ import ButtonCustom from "@/components/ui/ButtonCustom";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
-  FaArrowRight,
   FaFacebookF,
   FaFilm,
   FaInstagram,
@@ -12,201 +11,156 @@ import {
   FaVimeoV,
 } from "react-icons/fa";
 
-const quickLinks = [
-  { name: "HOME", href: "/" },
-  { name: "PROJECTS", href: "/projects" },
-  { name: "SERVICES", href: "/services" },
-  { name: "ABOUT", href: "/about" },
-  { name: "CONTACT", href: "/contact" },
-];
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
 
-const socialLinks = [
-  { name: "FACEBOOK", href: "https://facebook.com", icon: <FaFacebookF /> },
-  { name: "INSTAGRAM", href: "https://instagram.com", icon: <FaInstagram /> },
-  { name: "VIMEO", href: "https://vimeo.com", icon: <FaVimeoV /> },
-  { name: "LINKEDIN", href: "https://linkedin.com", icon: <FaLinkedinIn /> },
-];
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
 
-const MotionLink = motion(Link);
-
-interface FooterProps {
-  className?: string;
-}
-
-const Footer = ({ className = "" }: FooterProps) => (
-  <footer className={`w-full ${className}`}>
-    <div
-      className=" max-w-[100%] px-4 py-12 rounded-[40px] mx-16 "
-      style={{
-        background:
-          "radial-gradient(132.5% 150% at 3.7% 0%, rgb(255, 115, 0) 0%, rgba(255, 255, 255, 0.08) 37.64%)",
-        opacity: 1,
-      }}
+const Footer = () => {
+  return (
+    <motion.footer
+      className="bg-[#121212] text-white px-6 pt-20 pb-10"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8 }}
     >
-      {/* Logo */}
+      {/* CTA Section */}
       <motion.div
-        className="flex justify-center mb-12 gap-5"
-        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        className="max-w-6xl mx-auto text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
-        <FaFilm className="text-4xl mt-1 text-white" aria-hidden="true" />
-        <span className="tracking-widest text-white text-4xl">FLEX FILMS</span>
-      </motion.div>
-
-      {/* Slogan */}
-      <div className="text-center mb-2 border border-white/15 rounded-2xl p-8">
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold text-white mb-2 leading-tight"
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          Not limited to video,
-        </motion.h2>
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight"
-          whileHover={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          we're your creative comrades.
-        </motion.h2>
-        <p className="text-white/80 text-base mb-6">
-          Got questions, project ideas, or just want to say hi? We're all ears!
-        </p>
         <motion.div
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          className="flex items-center justify-center gap-3 mb-6"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
         >
-          <Link
-            href="#contact"
-            className="inline-flex items-center  text-white font-medium px-8 py-3 rounded-full transition-all text-sm"
-          >
-            <ButtonCustom text="Let's Collaborate" />
-          </Link>
+          <FaFilm className="text-4xl text-[#FF5F38]" />
+          <h2 className="text-3xl md:text-4xl font-bold tracking-widest relative overflow-hidden">
+            FLEX FILMS
+            {/* Shine effect */}
+            <motion.div
+              className="absolute top-0 left-[-50%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg]"
+              animate={{ x: ["-100%", "200%"] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            />
+          </h2>
         </motion.div>
-      </div>
-
-      {/* Contact Info & Links Section */}
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 border border-white/10 rounded-2xl p-8 "
-        whileHover={{ scale: 1.01 }}
-        transition={{ type: "spring", stiffness: 400, damping: 10 }}
-      >
-        {/* Left Column - Contact Info */}
-        <div className="space-y-6">
-          <div className="text-xs text-white/80 space-y-2">
-            <p>
-              ADDRESS: 11- K1 STREET NO. 40, TAN PHONG WARD, DISTRICT 7, HO CHI
-              MINH CITY, VIETNAM
-            </p>
-            <p>EMAIL: CONTACT@FLEXFILMS.VN</p>
-            <p>PHONE: 037 837 8000</p>
-          </div>
-          <div className="space-y-3">
-            <p className="text-white font-medium text-sm">
-              Subscribe to our newsletter
-            </p>
-            <div className=" flex gap-2 flex-col lg:flex-row ">
-              <motion.input
-                type="email"
-                placeholder="name@email.com"
-                className="flex-1 0 border border-white/10 text-white rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#FF5F38] focus:border-[#FF5F38]"
-                whileFocus={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              />
-              <motion.button
-                className="bg-[#FF5F38] hover:bg-[#ff4a1f] text-white px-6 py-2 rounded-full transition-all text-sm"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                Subscribe
-              </motion.button>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column - Quick Links & Social */}
-        <div className="grid grid-cols-2 gap-8 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8">
-          <div>
-            <h3 className="text-white font-medium mb-4 text-sm">Quick Links</h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <motion.li
-                  key={link.name}
-                  whileHover={{ scale: 1.05, x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-white/80 hover:text-[#FF5F38] transition-colors text-xs"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-white font-medium mb-4 text-sm">
-              Social Medias
-            </h3>
-            <ul className="space-y-3">
-              {socialLinks.map((link) => (
-                <motion.li
-                  key={link.name}
-                  whileHover={{ scale: 1.05, x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-white/80 hover:text-[#FF5F38] transition-colors text-xs"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <p className="text-white/70 mb-4 text-lg">
+          Not limited to video, we’re your creative comrades.
+        </p>
+        <Link href="#contact">
+          <ButtonCustom text="Let's Collaborate" />
+        </Link>
       </motion.div>
 
-      {/* Social Links */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {socialLinks.map((link) => (
-          <motion.div
-            key={link.name}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            <Link
-              href={link.href}
-              className="flex items-center justify-between bg-gray-800/50 hover:bg-gray-700/50 text-white p-4 rounded-xl border border-white/10 transition-all group"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="flex items-center gap-3">
-                <motion.span
-                  className="text-xl"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 10 }}
+      {/* Grid Info Section */}
+      <motion.div
+        className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 text-sm"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        {/* Contact */}
+        <motion.div variants={itemVariants}>
+          <h4 className="text-white font-semibold mb-4">Contact</h4>
+          <p className="text-white/60 leading-6">
+            11-K1 Street No. 40,
+            <br />
+            Tan Phong, District 7,
+            <br />
+            Ho Chi Minh City
+            <br />
+            <br />
+            contact@flexfilms.vn
+            <br />
+            037 837 8000
+          </p>
+        </motion.div>
+
+        {/* Quick Links */}
+        <motion.div variants={itemVariants}>
+          <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+          <ul className="space-y-3">
+            {["Home", "Projects", "Services", "About", "Contact"].map(
+              (item) => (
+                <motion.li
+                  key={item}
+                  whileHover={{ x: 4 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 >
-                  {link.icon}
-                </motion.span>
-                <span className="font-medium text-sm">{link.name}</span>
-              </div>
-              <motion.div
-                initial={{ x: 0 }}
-                whileHover={{ x: 5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <FaArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity" />
-              </motion.div>
-            </Link>
-          </motion.div>
-        ))}
+                  <Link
+                    href={`/${item.toLowerCase()}`}
+                    className="text-white/60 hover:text-white transition"
+                  >
+                    {item}
+                  </Link>
+                </motion.li>
+              )
+            )}
+          </ul>
+        </motion.div>
+
+        {/* Newsletter */}
+        <motion.div variants={itemVariants}>
+          <h4 className="text-white font-semibold mb-4">Newsletter</h4>
+          <p className="text-white/60 mb-4">Get updates & offers</p>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <input
+              type="email"
+              placeholder="you@example.com"
+              className="px-4 py-2 rounded-full bg-[#1F1F1F] text-white border border-white/10 focus:outline-none text-sm"
+            />
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#FF5F38] hover:bg-[#e85628] text-sm px-6 py-2 rounded-full transition"
+            >
+              Subscribe
+            </motion.button>
+          </div>
+        </motion.div>
+
+        {/* Social Icons */}
+        <motion.div variants={itemVariants}>
+          <h4 className="text-white font-semibold mb-4">Social</h4>
+          <div className="flex gap-4">
+            {[FaFacebookF, FaInstagram, FaVimeoV, FaLinkedinIn].map(
+              (Icon, idx) => (
+                <motion.a
+                  key={idx}
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                  className="p-3 bg-[#1F1F1F] rounded-full text-white/70 hover:text-white hover:bg-[#FF5F38] transition"
+                >
+                  <Icon />
+                </motion.a>
+              )
+            )}
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Footer Bottom */}
+      <div className="text-center text-white/30 text-xs mt-12">
+        © {new Date().getFullYear()} FLEX FILMS. All rights reserved.
       </div>
-    </div>
-  </footer>
-);
+    </motion.footer>
+  );
+};
 
 export default Footer;

@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useAnimationControls } from "framer-motion";
-import { useEffect } from "react";
+import { motion } from "framer-motion";
 import { FaFacebookF, FaGoogle, FaInstagram, FaTwitter } from "react-icons/fa";
 import {
   SiAmazon,
@@ -12,73 +11,61 @@ import {
   SiVisa,
 } from "react-icons/si";
 
+// Danh sách icon giả lập
+const ICONS = [
+  SiSamsung,
+  SiPorsche,
+  SiVisa,
+  SiMastercard,
+  SiPaypal,
+  SiAmazon,
+  FaGoogle,
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  SiSamsung,
+  SiPaypal,
+  SiVisa,
+  FaInstagram,
+  FaGoogle,
+];
+
 const BrandIcon = ({ icon: Icon }: { icon: any }) => (
-  <div className="mx-8 text-white/30 hover:text-white/60 transition-colors duration-300">
-    <Icon size={32} />
-  </div>
+  <motion.div
+    whileHover={{ scale: 1.15, rotate: 3 }}
+    whileTap={{ scale: 0.95 }}
+    className="flex items-center justify-center p-6 border border-white/10 rounded-lg transition-all duration-300 hover:border-white"
+  >
+    <Icon
+      size={40}
+      className="text-white/70 hover:text-white transition-colors duration-300"
+    />
+  </motion.div>
 );
 
-const SlideContent = () => (
-  <div className="flex items-center">
-    <BrandIcon icon={SiSamsung} />
-    <BrandIcon icon={SiPorsche} />
-    <BrandIcon icon={SiVisa} />
-    <BrandIcon icon={SiMastercard} />
-    <BrandIcon icon={SiPaypal} />
-    <BrandIcon icon={SiAmazon} />
-    <BrandIcon icon={FaGoogle} />
-    <BrandIcon icon={FaFacebookF} />
-    <BrandIcon icon={FaTwitter} />
-    <BrandIcon icon={FaInstagram} />
-  </div>
-);
-
-const Slide = () => {
-  const controls = useAnimationControls();
-
-  useEffect(() => {
-    const animate = async () => {
-      while (true) {
-        await controls.start({
-          x: "-100%",
-          transition: {
-            duration: 20,
-            ease: "linear",
-          },
-        });
-        await controls.set({ x: "0%" });
-      }
-    };
-
-    animate();
-  }, [controls]);
-
+const SlideGrid = () => {
   return (
     <>
-      <div className="text-white text-center text-4xl font-bold pb-8">
-        <p>Khách hàng</p>
+      <div className="text-center w-full pb-8 mt-36">
+        <p className="text-white text-4xl font-bold bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent drop-shadow-md transform transition-all hover:scale-105 duration-300">
+          Khách hàng
+        </p>
       </div>
 
-      {/* ✅ Thêm motion ở đây để có hiệu ứng xuất hiện */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="w-full flex justify-center bg-[#0d0d0d] pb-16"
+        className="w-full flex justify-center pb-16"
       >
-        <div className="w-[800px] overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 py-10">
-          <div className="relative">
-            <motion.div animate={controls} className="flex whitespace-nowrap">
-              <SlideContent />
-              <SlideContent />
-              <SlideContent />
-              <SlideContent />
-            </motion.div>
-          </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-7xl w-full px-6">
+          {ICONS.map((Icon, index) => (
+            <BrandIcon key={index} icon={Icon} />
+          ))}
         </div>
       </motion.div>
     </>
   );
 };
 
-export default Slide;
+export default SlideGrid;
